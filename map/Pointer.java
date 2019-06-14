@@ -1,11 +1,7 @@
 package worldbuilder.map;
 
-import worldbuilder.random.BiasedRandom;
+import worldbuilder.tools.BiasedRandom;
 
-/*
- * @author angel 
- * @date Apr 5, 2019
- */
 public class Pointer {
 
     public int x;

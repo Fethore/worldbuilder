@@ -1,9 +1,7 @@
 package worldbuilder.fileWritter;
 
-/*
- * @author angel 
- * @date Apr 4, 2019
- */
+import worldbuilder.output.OutputString;
+
 public class FileBuilder {
 
     static OutputString outputString;

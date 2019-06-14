@@ -1,11 +1,7 @@
 package worldbuilder.patterns;
 
-import worldbuilder.random.BiasedRandom;
+import worldbuilder.tools.BiasedRandom;
 
-/*
- * @author angel 
- * @date Apr 5, 2019
- */
 public class PatternFactory {
 
     public static Pattern getPattern() {

@@ -1,9 +1,5 @@
 package worldbuilder.map;
 
-/*
- * @author angel 
- * @date Apr 3, 2019
- */
 public class Map {
 
     private int[][] values;

@@ -1,21 +1,18 @@
 package worldbuilder.map;
 
 import worldbuilder.fileWritter.FileBuilder;
-import worldbuilder.log.LogOutputter;
+import worldbuilder.output.LogOutputter;
 import worldbuilder.patterns.Pattern;
 import worldbuilder.patterns.PatternFactory;
-import worldbuilder.random.BiasedRandom;
+import worldbuilder.tools.BiasedRandom;
 
-/*
- * @author angel 
- * @date Apr 4, 2019
- */
 public class MapGenerator {
 
     static Map blueMap;
     static Map greenMap;
     static Pointer[] pointers;
-    public static String mapSize;
+    public static int mapHeight;
+    public static int mapWidth;
 
     public static void generate() {
         buildMaps();
@@ -23,37 +20,22 @@ public class MapGenerator {
         fillGreenMap();
         createPointers();
         createIslands(1);
+        printSize();
+    }
+
+    private static void printSize() {
+        int width = blueMap.width;
+        int height = blueMap.height;
+        LogOutputter.writeNewLine("Map Size | Width: " + width + " | Height: " + height);
     }
 
     private static void buildMaps() {
-        switch (mapSize) {
-            case "Tiny":
-                blueMap = MapFactory.tinyMap();
-                greenMap = MapFactory.tinyMap();
-                break;
-            case "Small":
-                blueMap = MapFactory.smallMap();
-                greenMap = MapFactory.smallMap();
-                break;
-            case "Medium":
-                blueMap = MapFactory.mediumMap();
-                greenMap = MapFactory.mediumMap();
-                break;
-            case "Large":
-                blueMap = MapFactory.largeMap();
-                greenMap = MapFactory.largeMap();
-                break;
-            case "Mega":
-                blueMap = MapFactory.megaMap();
-                greenMap = MapFactory.megaMap();
-                break;
-
-        }
+        blueMap = MapFactory.getMap(mapWidth, mapHeight);
+        greenMap = MapFactory.getMap(mapWidth, mapHeight);
     }
 
     private static void createPointers() {
         int amount = blueMap.getSize() / 1500;
-        LogOutputter.writeNewLine("Pointer(s) created: " + amount);
         pointers = new Pointer[amount];
         for (int i = 0; i < amount; i++) {
             setPointer(i);
@@ -172,7 +154,7 @@ public class MapGenerator {
         String style = "<style>";
         style += " * { padding: 0px; margin: 0px; }";
         style += " html { background-color: lightblue; }";
-        style += " button { height: 3px; width: 3px; border: 0px solid black; }";
+        style += " button { height: 5px; width: 5px; border: 0px solid black; }";
         style += " button:hover { border-radius: 10px; }";
         style += "</style>";
         FileBuilder.append(style);
@@ -183,8 +165,8 @@ public class MapGenerator {
         for (int y = 0; y < blueMap.height; y++) {
             FileBuilder.append("<div>");
             for (int x = 0; x < blueMap.width; x++) {
-                int value = blueMap.getValue(x, y);
-                if (greenMap.getValue(x, y) > 0) {
+                int value = greenMap.getValue(x, y);
+                if (value > 0) {
                     String tile = MapTileFactory.getGreenTile(4);
                     FileBuilder.append(tile);
                 } else {

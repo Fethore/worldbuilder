@@ -1,9 +1,5 @@
 package worldbuilder.map;
 
-/*
- * @author angel 
- * @date Apr 4, 2019
- */
 public class ColorsCSS {
 
     static String[] gray;

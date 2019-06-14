@@ -4,12 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Formatter;
-import worldbuilder.log.LogOutputter;
 
-/*
- * @author angel 
- * @date Apr 4, 2019
- */
 public class FileManager {
 
     static Formatter formatter;
@@ -21,7 +16,7 @@ public class FileManager {
         newLine();
     }
 
-    public static void newLine() {
+    private static void newLine() {
         write("\n");
     }
 
@@ -31,9 +26,10 @@ public class FileManager {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(Content);
             bufferedWriter.close();
-            LogOutputter.writeNewLine("File written successfully.");
+            print(filePath + fileName + " written successfully.");
         } catch (Exception e) {
-            LogOutputter.writeNewLine("Error writing to file.");
+            System.out.println("FileManager: " + e);
+            print("Error when attempting to write " + fileName);
         }
     }
 
@@ -41,13 +37,14 @@ public class FileManager {
         String location = filePath + fileName;
         try {
             formatter = new Formatter(location);
-            LogOutputter.writeNewLine("File created: " + location + ".");
+            print("File created: " + location + ".");
         } catch (Exception e) {
-            LogOutputter.writeNewLine("Error creating file: " + location + ".");
+            print("FileManager.create():" + e);
+            print("Error creating file: " + location + ".");
         }
     }
-    
-    public static boolean fileExists(){
+
+    public static boolean fileExists() {
         File file = new File(filePath + fileName);
         return file.exists();
     }
@@ -58,6 +55,10 @@ public class FileManager {
 
     public static void setFilePath(String FilePath) {
         filePath = FilePath;
+    }
+
+    private static void print(String string) {
+        System.out.println(string);
     }
 
 }
