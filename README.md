@@ -1,2 +1,2 @@
 # worldbuilder
-Randomly generates a world as a HTML file.
+Produces randomly generated 2D maps in HTML format.
